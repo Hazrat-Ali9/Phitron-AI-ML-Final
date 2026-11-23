@@ -1,4 +1,4 @@
-# 🤖🧠 Phitron AI/ML Final Project
+# 🤖🧠 Phitron AI/ML Final Projects
 
 **Phitron-AI-ML-Final** is a comprehensive **Artificial Intelligence and Machine Learning capstone project** developed as part of the Phitron AI/ML learning journey.
 
