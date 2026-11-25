@@ -1,0 +1,51 @@
+[project]
+name = "baribhara-backend"
+version = "0.1.0"
+description = "BariBhara API: rent, flat, tenant and maintenance management for small Dhaka landlords"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "alembic>=1.20.1",
+    "asyncpg>=0.32.0",
+    "email-validator>=2.4.0",
+    "fastapi>=0.165.0",
+    "mcp>=2.3.0",
+    "openai>=3.58.0",
+    "pgvector>=0.5.1",
+    "pwdlib[argon2]>=0.4.2",
+    "pydantic-settings>=2.16.3",
+    "pyjwt>=2.15.1",
+    "sqlalchemy[asyncio]>=2.1.9",
+    "uvicorn[standard]>=0.54.0",
+]
+
+[tool.uv]
+package = false
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["E501"]
+"scripts/seed.py" = ["E501"]  # data tables read better on one line
+
+[tool.ruff.lint.isort]
+known-third-party = ["alembic"]
+
+[dependency-groups]
+dev = [
+    "httpx>=0.28.1",
+    "pytest>=9.2.0",
+    "pytest-asyncio>=1.5.0",
+    "ruff>=0.17.6",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "session"
+asyncio_default_test_loop_scope = "session"
+filterwarnings = ["ignore:Using `httpx` with `starlette.testclient`"]
