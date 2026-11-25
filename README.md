@@ -7,7 +7,7 @@ BariBhara helps small landlords and building committees in Dhaka run their build
 | Git repo | https://github.com/Hazrat-Ali9/Phitron-AI-ML-Final |
 | Demo video (Google Drive) | _add link_ |
 | Live API docs (Swagger) | _add Render URL_ `/docs` |
-| Live web app | _add Render static site URL_ |
+| Live web app | _https://baribhara-web.onrender.com/_ |
 
 ## The problem
 
