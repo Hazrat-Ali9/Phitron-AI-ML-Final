@@ -7,10 +7,7 @@ BariBhara helps small landlords and building committees in Dhaka run their build
 | Git repo | https://github.com/Hazrat-Ali9/Phitron-AI-ML-Final |
 | Demo video (Google Drive) | _add link_ |
 | Live API docs (Swagger) | _add Render URL_ `/docs` |
-| Live web app | https://baribhara-web.onrender.com/ |
-
-
-
+| Live web app | _add Render static site URL_ |
 
 ## The problem
 
@@ -145,7 +142,6 @@ uv run pytest            # tests use a separate, freshly migrated baribhara_test
 
 | Role | Email | Password |
 |---|---|---|
-
 | Admin | hazrat@baribhara.app | admin123 |
 | Owner | rahman@baribhara.app | admin123 |
 | Caretaker | karim@baribhara.app | staff123 |
