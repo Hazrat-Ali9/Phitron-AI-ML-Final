@@ -21,3 +21,5 @@
   },
   "include": ["vite.config.ts"]
 }
+/* tsconfig node json */
+
