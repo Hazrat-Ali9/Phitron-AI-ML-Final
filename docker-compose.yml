@@ -1,0 +1,53 @@
+# Fresh clone:
+#   cp .env.example .env        # then put your Gemini key in LLM_API_KEY
+#   docker compose up -d --build
+#   docker compose exec api python -m scripts.seed
+#   docker compose exec api python -m scripts.ingest
+# API docs: http://localhost:8000/docs   App: http://localhost:5173
+
+services:
+  db:
+    image: pgvector/pgvector:pg16
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-baribhara}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-baribhara}
+      POSTGRES_DB: ${POSTGRES_DB:-baribhara}
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  api:
+    build: ./backend
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      # Inside compose the database host is the `db` service, not localhost
+      DATABASE_URL: postgresql+asyncpg://${POSTGRES_USER:-baribhara}:${POSTGRES_PASSWORD:-baribhara}@db:5432/${POSTGRES_DB:-baribhara}
+      APP_ENV: ${APP_ENV:-development}
+    ports:
+      - "8000:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        VITE_API_URL: ${VITE_API_URL:-http://localhost:8000}
+    restart: unless-stopped
+    ports:
+      - "5173:80"
+    depends_on:
+      api:
+        condition: service_healthy
+
+volumes:
+  pgdata:
