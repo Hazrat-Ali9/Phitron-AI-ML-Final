@@ -5,7 +5,7 @@ re-embed everything, e.g. after changing EMBEDDING_MODEL.
 
 Run from backend/:  uv run python -m scripts.ingest [--force]
 """
-
+# ingest
 import argparse
 import asyncio
 import logging
