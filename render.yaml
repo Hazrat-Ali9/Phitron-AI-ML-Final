@@ -1,0 +1,66 @@
+# Render Blueprint: New -> Blueprint -> pick this repo. Creates the database, the API
+# and the web app. You are asked for the values marked `sync: false`.
+databases:
+  - name: baribhara-db
+    plan: free
+    databaseName: baribhara
+    user: baribhara
+    postgresMajorVersion: "16"
+
+services:
+  - type: web
+    name: baribhara-api
+    runtime: docker
+    plan: free
+    rootDir: backend
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /api/v1/health
+    envVars:
+      - key: APP_ENV
+        value: production
+      # postgres://... is rewritten to postgresql+asyncpg://... by the settings validator
+      - key: DATABASE_URL
+        fromDatabase:
+          name: baribhara-db
+          property: connectionString
+      - key: JWT_SECRET_KEY
+        generateValue: true
+      - key: LLM_BASE_URL
+        value: https://generativelanguage.googleapis.com/v1beta/openai/
+      - key: LLM_MODEL
+        value: gemini-2.5-flash
+      - key: LLM_API_KEY
+        sync: false
+      - key: EMBEDDING_BASE_URL
+        value: https://generativelanguage.googleapis.com/v1beta/openai/
+      - key: EMBEDDING_MODEL
+        value: gemini-embedding-001
+      - key: EMBEDDING_DIM
+        value: "768"
+      - key: RAG_MIN_SCORE
+        value: "0.65"
+      # e.g. https://baribhara-web.onrender.com
+      - key: CORS_ORIGINS
+        sync: false
+      # Free instances have no shell: seed + ingest on start (both are idempotent).
+      - key: SEED_ON_START
+        value: "true"
+      - key: INGEST_ON_START
+        value: "true"
+
+  - type: web
+    name: baribhara-web
+    runtime: static
+    rootDir: frontend
+    buildCommand: npm ci && npm run build
+    staticPublishPath: dist
+    envVars:
+      # e.g. https://baribhara-api.onrender.com (no trailing slash, no /api/v1)
+      - key: VITE_API_URL
+        sync: false
+      - key: VITE_API_MOCK
+        value: "false"
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
