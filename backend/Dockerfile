@@ -1,6 +1,6 @@
 # BariBhara API: FastAPI + uv, runs migrations on start.
 FROM python:3.12-slim
-
+# Dockerfile
 # uv binary from the official image (pinned minor version)
 COPY --from=ghcr.io/astral-sh/uv:0.13 /uv /uvx /bin/
 
