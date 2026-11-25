@@ -1,5 +1,5 @@
 # BariBhara — Frontend
-# 
+
 React UI for BariBhara, the AI rent and building manager for Dhaka landlords.
 
 **Stack:** React 19 · TypeScript · Vite · Tailwind CSS v4 · TanStack Query · React Router
