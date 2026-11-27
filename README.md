@@ -1,4 +1,4 @@
-# BariBhara (বাড়িভাড়া) — AI rent & building manager for Dhaka landlords
+# Bari Bhara (বাড়িভাড়া) — AI rent & building manager for Dhaka landlords
 
 BariBhara helps small landlords and building committees in Dhaka run their buildings: flats, tenants, leases, the monthly rent ledger and repair requests, plus an AI assistant that answers from the real data and the building's own documents, in Bangla or English.
 
